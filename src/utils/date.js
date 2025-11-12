@@ -1,1 +1,3 @@
-export function short(d){ return new Date(d).toLocaleDateString(); }
+export function short(d) {
+  return new Date(d).toLocaleDateString();
+}

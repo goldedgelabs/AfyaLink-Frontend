@@ -9,7 +9,7 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js';
 
 // Register Chart.js components
@@ -20,7 +20,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export default function Charts() {
@@ -32,9 +32,9 @@ export default function Charts() {
         data: [12, 19, 7, 14, 9],
         fill: false,
         borderColor: '#4f46e5', // Tailwind Indigo
-        tension: 0.3
-      }
-    ]
+        tension: 0.3,
+      },
+    ],
   };
 
   return (

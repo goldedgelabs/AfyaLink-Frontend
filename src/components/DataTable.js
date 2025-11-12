@@ -23,4 +23,4 @@ export default function DataTable({ rows }) {
       </tbody>
     </table>
   );
-                   }
+}

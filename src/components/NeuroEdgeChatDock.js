@@ -15,7 +15,7 @@ export default function NeuroEdgeChatDock() {
     // Send to AI endpoint
     const res = await fetch('/api/neuroedge', {
       method: 'POST',
-      body: JSON.stringify({ prompt: text })
+      body: JSON.stringify({ prompt: text }),
     });
     const data = await res.json();
 
@@ -33,7 +33,7 @@ export default function NeuroEdgeChatDock() {
         right: 18,
         bottom: 18,
         width: 340,
-        zIndex: 999
+        zIndex: 999,
       }}
     >
       <div className="card p-3 bg-white shadow rounded-md">
@@ -56,7 +56,7 @@ export default function NeuroEdgeChatDock() {
               style={{
                 maxHeight: 180,
                 overflowY: 'auto',
-                marginTop: 8
+                marginTop: 8,
               }}
             >
               {messages.map((m, i) => (
@@ -66,8 +66,10 @@ export default function NeuroEdgeChatDock() {
                     margin: 6,
                     padding: 6,
                     background:
-                      m.from === 'ai' ? 'rgba(2,6,23,0.06)' : 'rgba(255,255,255,0.02)',
-                    borderRadius: 8
+                      m.from === 'ai'
+                        ? 'rgba(2,6,23,0.06)'
+                        : 'rgba(255,255,255,0.02)',
+                    borderRadius: 8,
                   }}
                 >
                   {m.text}
@@ -110,4 +112,4 @@ export default function NeuroEdgeChatDock() {
       </div>
     </div>
   );
-        }
+}

@@ -1,1 +1,3 @@
-export function log(){ console.log.apply(null,arguments); }
+export function log() {
+  console.log.apply(null, arguments);
+}

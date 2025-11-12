@@ -9,24 +9,24 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "next": "14.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "axios": "^1.4.0",
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.21",
     "autoprefixer": "^10.4.14",
-    "framer-motion": "^10.12.16",
-    "lottie-react": "^2.3.0",
-    "socket.io-client": "^4.8.1",
+    "axios": "^1.4.0",
     "chart.js": "^4.4.0",
+    "framer-motion": "^10.12.16",
+    "idb-keyval": "^6.2.0",
+    "lottie-react": "^2.3.0",
+    "next": "14.0.0",
+    "postcss": "^8.4.21",
+    "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "idb-keyval": "^6.2.0"
+    "react-dom": "18.2.0",
+    "socket.io-client": "^4.8.1",
+    "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
     "eslint": "^8.41.0",
-    "prettier": "^3.0.0",
+    "nodemon": "^2.0.22",
     "playwright": "^1.40.0",
-    "nodemon": "^2.0.22"
+    "prettier": "^3.6.2"
   }
 }

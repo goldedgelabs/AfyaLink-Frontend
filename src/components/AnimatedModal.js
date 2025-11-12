@@ -10,7 +10,7 @@ export default function AnimatedModal({ children, open, onClose }) {
         position: 'fixed',
         inset: 0,
         display: 'grid',
-        placeItems: 'center'
+        placeItems: 'center',
       }}
     >
       <motion.div

@@ -1,5 +1,5 @@
 export async function analyzeImage(f) {
   return {
-    summary: 'Mock vision analysis'
+    summary: 'Mock vision analysis',
   };
 }
