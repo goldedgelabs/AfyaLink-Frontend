@@ -1,0 +1,27 @@
+name: Format Code
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install --save-dev prettier
+      - name: Format JS/TS
+        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}" "components/**/*.{js,jsx,ts,tsx}" "ai/**/*.{js,ts}"
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git commit -m "Auto-format code with Prettier" || echo "No changes to commit"
+          git push
