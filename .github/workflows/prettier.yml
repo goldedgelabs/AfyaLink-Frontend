@@ -1,4 +1,4 @@
-name: Smart Prettier Formatter
+name: Prettier Format - Selected Folders
 
 on:
   workflow_dispatch:
@@ -12,34 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # 3️⃣ Install Prettier
       - name: Install Prettier
         run: npm install --save-dev prettier
 
-      - name: Find JS/TS files
-        id: files
+      # 4️⃣ Format JS/TS files in selected folders only
+      - name: Format selected folders
         run: |
-          FILES=$(git ls-files '*.js' '*.jsx' '*.ts' '*.tsx')
-          echo "FILES=$FILES" >> $GITHUB_ENV
+          npx prettier --write "Mock-server/**/*.{js,jsx,ts,tsx}" \
+                        "src/**/*.{js,jsx,ts,tsx}" \
+                        "tests/e2e/**/*.{js,jsx,ts,tsx}" \
+                        "public/**/*.{js,jsx,ts,tsx}"
 
-      - name: Check & format unformatted files
-        run: |
-          for f in $FILES; do
-            # Only format if Prettier would change the file
-            npx prettier --check "$f" || npx prettier --write "$f"
-          done
-
+      # 5️⃣ Commit & push changes
       - name: Commit & push formatted files
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add .
-          git commit -m "Auto-format only unformatted JS/TS files" || echo "No changes to commit"
+          git commit -m "Auto-format JS/TS code in selected folders" || echo "No changes to commit"
           git push
