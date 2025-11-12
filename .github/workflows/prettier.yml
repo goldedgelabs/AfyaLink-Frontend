@@ -12,29 +12,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # 3️⃣ Install Prettier
       - name: Install Prettier
         run: npm install --save-dev prettier
 
-      # 4️⃣ Format JS/TS files in selected folders only
-      - name: Format selected folders
+      - name: Format JS/TS files in selected folders
         run: |
-          npx prettier --write "Mock-server/**/*.{js,jsx,ts,tsx}" \
-                        "src/**/*.{js,jsx,ts,tsx}" \
-                        "tests/e2e/**/*.{js,jsx,ts,tsx}" \
-                        "public/**/*.{js,jsx,ts,tsx}"
+          for folder in Mock-server src tests/e2e public; do
+            files=$(find $folder -type f \( -name "*.js" -o -name "*.jsx" -o -name "*.ts" -o -name "*.tsx" \))
+            if [ -n "$files" ]; then
+              npx prettier --write $files
+            fi
+          done
 
-      # 5️⃣ Commit & push changes
       - name: Commit & push formatted files
         run: |
           git config --global user.name "github-actions"
