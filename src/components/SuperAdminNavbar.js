@@ -68,7 +68,7 @@ export default function SuperAdminNavbar() {
             className="flex items-center space-x-2 focus:outline-none"
           >
             <Image
-              src={user?.avatar || '/avatar-placeholder.png'}
+              src={user?.avatar || '/avatar.png'}
               alt="Admin Avatar"
               width={36}
               height={36}
