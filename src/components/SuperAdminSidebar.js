@@ -93,4 +93,4 @@ export default function SuperAdminSidebar({ open, setOpen }) {
       </div>
     </motion.aside>
   );
-            }
+            } 
