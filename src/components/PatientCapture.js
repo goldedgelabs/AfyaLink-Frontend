@@ -4,10 +4,18 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 /**
- * Usage:
- * <PatientCapture onShare={(payload)=>{ /* handle share here */ }} />
+ * PatientCapture component
  *
- * Stores captured images in localStorage and allows selecting a doctor to share.
+ * Usage:
+ * Pass an `onShare` callback to handle captured images when the user shares.
+ *
+ * Example:
+ *   function handleShare(payload) {
+ *     // do something with the shared image payload
+ *   }
+ *   <PatientCapture onShare={handleShare} />
+ *
+ * This component stores captured images in localStorage and allows selecting a doctor to share.
  */
 
 export default function PatientCapture({ onShare }) {
