@@ -5,7 +5,7 @@ import { AuthContext } from "@/context/AuthContext";
 
 /**
  * Usage:
- * <PatientCapture onShare={(payload)=>{/* handle share */}} />
+ * <PatientCapture onShare={(payload)=>{ /* handle share here */ }} />
  *
  * Stores captured images in localStorage and allows selecting a doctor to share.
  */
@@ -21,9 +21,15 @@ export default function PatientCapture({ onShare }) {
 
   useEffect(() => {
     // load mocked doctors list (from mock-server data or local file)
-    fetch("/mock-server/data/doctors.json").then(r => r.json()).then(setDoctors).catch(()=> {
-      setDoctors([{ id: 'd1', fullName: 'Dr. Asha Mwangi' }, { id: 'd2', fullName: 'Dr. Peter Kimani' }]);
-    });
+    fetch("/mock-server/data/doctors.json")
+      .then(r => r.json())
+      .then(setDoctors)
+      .catch(() => {
+        setDoctors([
+          { id: 'd1', fullName: 'Dr. Asha Mwangi' },
+          { id: 'd2', fullName: 'Dr. Peter Kimani' }
+        ]);
+      });
   }, []);
 
   async function startCamera() {
@@ -56,9 +62,14 @@ export default function PatientCapture({ onShare }) {
     const data = canvas.toDataURL("image/png");
     setPreview(data);
     // store locally for patient
-    const key = `afya:patient:${user?.id||'anon'}:images`;
+    const key = `afya:patient:${user?.id || 'anon'}:images`;
     const arr = JSON.parse(localStorage.getItem(key) || "[]");
-    arr.unshift({ id: Date.now(), data, timestamp: new Date().toISOString(), doctor: selectedDoctor || null });
+    arr.unshift({
+      id: Date.now(),
+      data,
+      timestamp: new Date().toISOString(),
+      doctor: selectedDoctor || null
+    });
     localStorage.setItem(key, JSON.stringify(arr));
   }
 
@@ -88,32 +99,69 @@ export default function PatientCapture({ onShare }) {
       <div className="space-y-3">
         <div>
           <label className="block text-sm">Select Doctor to share with</label>
-          <select className="mt-1 border p-2 w-full rounded" value={selectedDoctor} onChange={(e)=>setSelectedDoctor(e.target.value)}>
+          <select
+            className="mt-1 border p-2 w-full rounded"
+            value={selectedDoctor}
+            onChange={(e) => setSelectedDoctor(e.target.value)}
+          >
             <option value="">— Choose doctor —</option>
-            {doctors.map(d=> <option key={d.id} value={d.id}>{d.fullName || d.name}</option>)}
+            {doctors.map(d => (
+              <option key={d.id} value={d.id}>
+                {d.fullName || d.name}
+              </option>
+            ))}
           </select>
         </div>
 
-        {!cameraOn && <button onClick={startCamera} className="px-3 py-2 bg-indigo-600 text-white rounded">Start Camera</button>}
-        {cameraOn && <button onClick={stopCamera} className="px-3 py-2 border rounded">Stop Camera</button>}
+        {!cameraOn && (
+          <button
+            onClick={startCamera}
+            className="px-3 py-2 bg-indigo-600 text-white rounded"
+          >
+            Start Camera
+          </button>
+        )}
+        {cameraOn && (
+          <button onClick={stopCamera} className="px-3 py-2 border rounded">
+            Stop Camera
+          </button>
+        )}
 
         <div className="mt-3">
-          <video ref={videoRef} className="w-full rounded border" style={{display: cameraOn ? 'block' : 'none'}}/>
-          <canvas ref={canvasRef} style={{display:'none'}}/>
+          <video
+            ref={videoRef}
+            className="w-full rounded border"
+            style={{ display: cameraOn ? "block" : "none" }}
+          />
+          <canvas ref={canvasRef} style={{ display: "none" }} />
         </div>
 
         <div className="flex gap-2 mt-2">
-          <button onClick={capture} className="px-3 py-2 bg-green-600 text-white rounded">Capture Photo</button>
-          <button onClick={share} className="px-3 py-2 bg-blue-600 text-white rounded">Share with Doctor</button>
+          <button
+            onClick={capture}
+            className="px-3 py-2 bg-green-600 text-white rounded"
+          >
+            Capture Photo
+          </button>
+          <button
+            onClick={share}
+            className="px-3 py-2 bg-blue-600 text-white rounded"
+          >
+            Share with Doctor
+          </button>
         </div>
 
         {preview && (
           <div className="mt-3">
             <div className="text-sm font-medium mb-1">Preview</div>
-            <img src={preview} alt="preview" className="w-48 h-48 object-contain rounded border" />
+            <img
+              src={preview}
+              alt="preview"
+              className="w-48 h-48 object-contain rounded border"
+            />
           </div>
         )}
       </div>
     </div>
   );
-  }
+      }
